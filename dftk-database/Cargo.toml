@@ -1,0 +1,23 @@
+[package]
+name = "dftk-database"
+version = "0.1.0"
+authors = ["igor <ilaborie@gmail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+dftk-common = { path = "../dftk-common", version = "0.1.0" }
+
+anyhow = "1.0"
+log = "0.4"
+
+uuid = { version = "0.8", features = ["serde", "v4"] }
+chbs = "0.0"
+
+serde = { version = "1.0", features = ["derive"] }
+
+#, features = ["full"]
+tokio = { version = "0.2" }
+mongodb = { version = "1.0", default-features = false, features = ["tokio-runtime"] }
+bson = "1.0"

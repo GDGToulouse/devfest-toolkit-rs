@@ -1,0 +1,17 @@
+[package]
+name = "dftk-hugo-site"
+version = "0.1.0"
+authors = ["igor <ilaborie@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+
+dftk-common = { path = "../dftk-common", version = "0.1.0" }
+
+anyhow = "1.0"
+log = "0.4"
+glob = "0.3"
+
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_yaml = "0.8"

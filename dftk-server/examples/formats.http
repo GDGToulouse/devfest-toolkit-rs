@@ -1,0 +1,24 @@
+
+### List session formats
+GET {{host}}/api/site/formats
+
+### Create session format
+POST {{host}}/api/site/formats
+Content-Type: application/json
+
+{
+  "name": "Plop"
+}
+
+### Update session format
+PUT {{host}}/api/site/formats/dda6f922-e883-4baf-8382-5daef7eaf4e0
+Content-Type: application/json
+
+{
+  "name": "Plop",
+  "description": "Lorem Ipsum..."
+}
+
+### Delete session format
+DELETE {{host}}/api/site/formats/dda6f922-e883-4baf-8382-5daef7eaf4e0
+

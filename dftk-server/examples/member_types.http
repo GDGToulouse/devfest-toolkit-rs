@@ -1,0 +1,23 @@
+
+### List team member types
+GET {{host}}/api/site/member-types
+
+### Create team member type
+POST {{host}}/api/site/member-types
+Content-Type: application/json
+
+{
+  "name": "Plop"
+}
+
+### Update team member type
+PUT {{host}}/api/site/member-types/dda6f922-e883-4baf-8382-5daef7eaf4e0
+Content-Type: application/json
+
+{
+  "name": "Plop 2"
+}
+
+### Delete team member type
+DELETE {{host}}/api/site/member-types/dda6f922-e883-4baf-8382-5daef7eaf4e0
+

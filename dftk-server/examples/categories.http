@@ -1,0 +1,24 @@
+
+### List session categories
+GET {{host}}/api/site/categories
+
+### Create session categories
+POST {{host}}/api/site/categories
+Content-Type: application/json
+
+{
+  "name": "Plop"
+}
+
+### Update session categories
+PUT {{host}}/api/site/categories/dda6f922-e883-4baf-8382-5daef7eaf4e0
+Content-Type: application/json
+
+{
+  "name": "Plop",
+  "description": "Lorem Ipsum..."
+}
+
+### Delete session categories
+DELETE {{host}}/api/site/categories/dda6f922-e883-4baf-8382-5daef7eaf4e0
+

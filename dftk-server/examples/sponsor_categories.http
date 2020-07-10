@@ -1,0 +1,23 @@
+
+### List team sponsor categoriess
+GET {{host}}/api/site/sponsor-categories
+
+### Create team sponsor category
+POST {{host}}/api/site/sponsor-categories
+Content-Type: application/json
+
+{
+  "name": "Plop"
+}
+
+### Update team sponsor category
+PUT {{host}}/api/site/sponsor-categories/dda6f922-e883-4baf-8382-5daef7eaf4e0
+Content-Type: application/json
+
+{
+  "name": "Plop 2"
+}
+
+### Delete team sponsor category
+DELETE {{host}}/api/site/sponsor-categories/dda6f922-e883-4baf-8382-5daef7eaf4e0
+

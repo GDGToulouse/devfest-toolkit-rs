@@ -1,0 +1,19 @@
+[package]
+name = "dftk-conference-hall"
+version = "0.1.0"
+authors = ["igor <ilaborie@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+
+dftk-common = { path = "../dftk-common", version = "0.1.0" }
+
+anyhow = "1.0"
+log = "0.4"
+
+uuid = { version = "0.8", features = ["serde", "v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+
+serde = { version = "1.0", features = ["derive"] }
+
+reqwest = { version = "0.10", features = ["json"] }

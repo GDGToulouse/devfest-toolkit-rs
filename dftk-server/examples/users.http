@@ -1,0 +1,40 @@
+### List users
+GET {{host}}/api/users
+
+###  Create Admin
+POST {{host}}/api/users
+Content-Type: application/json
+
+{
+  "type": "Admin",
+  "email": "plop@plop.io"
+}
+
+###  Create Team
+POST {{host}}/api/users
+Content-Type: application/json
+
+{
+  "type": "Team",
+  "email": "team@plop.io"
+}
+
+###  Create Speaker
+POST {{host}}/api/users
+Content-Type: application/json
+
+{
+  "type": "Speaker",
+  "email": "speaker@plop.io",
+  "key": "8nSCFV8Ne4WLjfP2IBNdoLVMtNV2"
+}
+
+###  Create Sponsor
+POST {{host}}/api/users
+Content-Type: application/json
+
+{
+  "type": "Sponsor",
+  "email": "sponsor@plop.io",
+  "key": "mkp"
+}

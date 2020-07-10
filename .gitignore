@@ -1,1 +1,7 @@
 /target
+/_output
+/_input
+
+set-env.sh
+watch.sh
+http-client.env.json

@@ -1,0 +1,32 @@
+[package]
+name = "dftk-server"
+version = "0.1.0"
+authors = ["igor <ilaborie@gmail.com>"]
+edition = "2018"
+
+[features]
+default = []
+
+rest = []
+graphql = ["async-graphql", "async-graphql-warp", "dftk-common/graphql"]
+
+[dependencies]
+
+dftk-common = { path = "../dftk-common", version = "0.1.0" }
+dftk-conference-hall = { path = "../dftk-conference-hall", version = "0.1.0" }
+dftk-hugo-site = { path = "../dftk-hugo-site", version = "0.1.0" }
+dftk-database = { path = "../dftk-database", version = "0.1.0" }
+
+uuid = { version = "0.8", features = ["serde", "v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+anyhow = "1.0"
+log = "0.4"
+
+async-graphql = { version = "1.16", optional = true }
+async-graphql-warp = { version = "1.16", optional = true }
+
+warp = "0.2"
