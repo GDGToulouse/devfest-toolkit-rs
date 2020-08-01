@@ -227,6 +227,11 @@ impl SpeakerRepository {
         self.repo.find_by_id(sid.as_str()).await
     }
 
+    pub async fn find_by_key(&self, key: SpeakerKey) -> Result<Option<SpeakerDocument>> {
+        let k: String = key.into();
+        self.repo.find_by_key(k.as_str()).await
+    }
+
     pub async fn find_by_keys(&self, keys: &[String]) -> Result<Vec<Speaker>> {
         let result = self
             .repo

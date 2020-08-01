@@ -58,6 +58,16 @@ impl Into<String> for SpeakerKey {
     }
 }
 
+impl FromStr for SpeakerKey {
+    type Err = anyhow::Error;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let key = SpeakerKey(s.into());
+
+        Ok(key)
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Speaker {
     _id: SpeakerId,

@@ -20,23 +20,41 @@ struct ErrorMessage {
 pub enum Oops {
     DatabaseIssue(String),
     ConferenceHallIssue(String),
+    Authentication(String),
+    MissingField(String),
+    BadField(String),
+    Other(String),
 }
 
 impl Oops {
     pub fn db(err: Error) -> Rejection {
-        let message = format!("{}", err);
+        let message = format!("Database issue: {}", err);
         warp::reject::custom(Oops::DatabaseIssue(message))
     }
     pub fn ch(err: Error) -> Rejection {
-        let message = format!("{}", err);
+        let message = format!("Error during call to Conference Hall: {}", err);
         warp::reject::custom(Oops::ConferenceHallIssue(message))
+    }
+    pub fn auth(err: Error) -> Rejection {
+        let message = format!("Authentication issue: {}", err);
+        warp::reject::custom(Oops::Authentication(message))
+    }
+    pub fn missing(field: &str) -> Rejection {
+        let message = format!("Missing the field '{}'", field);
+        warp::reject::custom(Oops::MissingField(message))
+    }
+    pub fn bad(field: &str, err: Error) -> Rejection {
+        let message = format!("Invalid field '{}': {}", field, err);
+        warp::reject::custom(Oops::BadField(message))
+    }
+    pub fn other(err: Error) -> Rejection {
+        let message = format!("Oops! {}", err);
+        warp::reject::custom(Oops::Other(message))
     }
 }
 
 impl Reject for Oops {}
 
-// This function receives a `Rejection` and tries to return a custom
-// value, otherwise simply passes the rejection along.
 pub async fn handle_rejection(err: Rejection) -> Result<impl Reply, Infallible> {
     info!("Oops: {:?}", err);
 

@@ -1,3 +1,4 @@
+use std::convert::Infallible;
 use std::net::SocketAddr;
 
 use anyhow::Result;
@@ -8,8 +9,10 @@ use dftk_conference_hall::ConferenceHallConfig;
 use dftk_database::{MongodbConfig, Repositories};
 use dftk_hugo_site::SiteConfig;
 
+use crate::authentication::build_auth_routes;
 use crate::rejection::handle_rejection;
 
+pub mod authentication;
 pub mod rejection;
 
 #[cfg(feature = "rest")]
@@ -17,6 +20,8 @@ pub mod rest;
 
 #[cfg(feature = "graphql")]
 pub mod graphql;
+
+const MAX_BODY_LENGTH: u64 = 1024 * 16; // 16kb
 
 #[derive(Clone, Debug)]
 pub struct ServerConfig {
@@ -98,6 +103,18 @@ impl ServerContext {
     }
 }
 
+fn with_repo(
+    repos: Repositories,
+) -> impl Filter<Extract = (Repositories,), Error = Infallible> + Clone {
+    warp::any().map(move || repos.clone())
+}
+
+fn with_context(
+    context: ServerContext,
+) -> impl Filter<Extract = (ServerContext,), Error = Infallible> + Clone {
+    warp::any().map(move || context.clone())
+}
+
 // FIXME authentication authorization
 
 // GraphQL routes
@@ -133,13 +150,28 @@ fn rest_routes(context: &ServerContext) -> BoxedFilter<(impl Reply,)> {
         .boxed()
 }
 
+// Auth routes
+fn auth_routes(context: &ServerContext) -> BoxedFilter<(impl Reply,)> {
+    warp::path("auth").and(build_auth_routes(&context)).boxed()
+}
+
+// All routes
+fn routes(context: &ServerContext) -> BoxedFilter<(impl Reply,)> {
+    let cors = warp::cors().allow_any_origin();
+
+    auth_routes(context)
+        .or(graphql_routes(context))
+        .or(rest_routes(context))
+        .with(cors)
+        .recover(handle_rejection)
+        .boxed()
+}
+
 pub async fn run_server(context: ServerContext) -> Result<()> {
     let ServerConfig { host, port, .. } = context.server_config();
 
     // Routes
-    let routes = graphql_routes(&context)
-        .or(rest_routes(&context))
-        .recover(handle_rejection);
+    let routes = routes(&context);
 
     let address = format!("{}:{}", host, port);
     let addr: SocketAddr = address.parse()?;

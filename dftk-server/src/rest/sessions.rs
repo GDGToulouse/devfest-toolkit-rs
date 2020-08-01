@@ -2,18 +2,19 @@ use log::{debug, info};
 use warp::filters::BoxedFilter;
 use warp::{Filter, Rejection, Reply};
 
-use dftk_common::models::session::{PartialSession, SessionId};
+use dftk_common::models::session::{PartialSession, SessionId, SessionKey};
 use dftk_database::sessions::SessionPatch;
 use dftk_database::Repositories;
 
 use crate::rejection::Oops;
-use crate::rest::{with_repo, MAX_BODY_LENGTH};
-use crate::ServerContext;
+use crate::{with_repo, ServerContext, MAX_BODY_LENGTH};
 
 ///
 /// Provide sessions routes
 ///
 /// `GET    site/sessions`: list all sessions
+///
+/// `GET    site/sessions/{key}`: get a session
 ///
 /// `POST   site/sessions`: create a session
 ///
@@ -35,7 +36,7 @@ pub fn build_sessions_routes(context: &ServerContext) -> BoxedFilter<(impl Reply
 
     let get = warp::get() //
         .and(with_repo(context.repos())) //
-        .and(warp::path::param::<SessionId>())
+        .and(warp::path::param::<SessionKey>())
         .and_then(get_session);
 
     let delete = warp::delete()
@@ -79,9 +80,9 @@ async fn list_sessions(repos: Repositories) -> Result<impl Reply, Rejection> {
     Ok(result)
 }
 
-async fn get_session(repos: Repositories, id: SessionId) -> Result<impl Reply, Rejection> {
-    info!("Getting session {}", id);
-    let result = repos.session().find_by_id(id).await.map_err(Oops::db)?;
+async fn get_session(repos: Repositories, key: SessionKey) -> Result<impl Reply, Rejection> {
+    info!("Getting session {:?}", key);
+    let result = repos.session().find_by_key(key).await.map_err(Oops::db)?;
 
     result
         .map(|it| warp::reply::json(&it))

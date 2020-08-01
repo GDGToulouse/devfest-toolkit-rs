@@ -41,3 +41,266 @@ impl Operation {
         }
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    mod admin {
+        use super::*;
+
+        fn operation() -> Operation {
+            Operation::Administration
+        }
+
+        #[test]
+        fn should_not_be_view() {
+            let result = operation().is_view();
+            assert_eq!(result, false);
+        }
+
+        #[test]
+        fn should_have_no_sponsor() {
+            let result = operation().sponsor();
+            assert_eq!(result, None);
+        }
+
+        #[test]
+        fn should_have_no_session() {
+            let result = operation().session();
+            assert_eq!(result, None);
+        }
+    }
+
+    mod view_site {
+        use super::*;
+
+        fn operation() -> Operation {
+            Operation::ViewSite
+        }
+
+        #[test]
+        fn should_be_view() {
+            let result = operation().is_view();
+            assert_eq!(result, true);
+        }
+
+        #[test]
+        fn should_have_no_sponsor() {
+            let result = operation().sponsor();
+            assert_eq!(result, None);
+        }
+
+        #[test]
+        fn should_have_no_session() {
+            let result = operation().session();
+            assert_eq!(result, None);
+        }
+    }
+
+    mod view_session {
+        use super::*;
+
+        fn key() -> SessionKey {
+            SessionKey::new("plop")
+        }
+
+        fn operation() -> Operation {
+            Operation::ViewSession(key())
+        }
+
+        #[test]
+        fn should_be_view() {
+            let result = operation().is_view();
+            assert_eq!(result, true);
+        }
+
+        #[test]
+        fn should_have_no_sponsor() {
+            let result = operation().sponsor();
+            assert_eq!(result, None);
+        }
+
+        #[test]
+        fn should_have_session() {
+            let result = operation().session();
+            assert_eq!(result, Some(key()));
+        }
+    }
+
+    mod view_speaker {
+        use super::*;
+
+        fn key() -> SpeakerKey {
+            SpeakerKey::new("plop")
+        }
+
+        fn operation() -> Operation {
+            Operation::ViewSpeaker(key())
+        }
+
+        #[test]
+        fn should_be_view() {
+            let result = operation().is_view();
+            assert_eq!(result, true);
+        }
+
+        #[test]
+        fn should_have_no_sponsor() {
+            let result = operation().sponsor();
+            assert_eq!(result, None);
+        }
+
+        #[test]
+        fn should_have_no_session() {
+            let result = operation().session();
+            assert_eq!(result, None);
+        }
+    }
+
+    mod view_sponsor {
+        use super::*;
+
+        fn key() -> SponsorKey {
+            SponsorKey::new("plop")
+        }
+
+        fn operation() -> Operation {
+            Operation::ViewSponsor(key())
+        }
+
+        #[test]
+        fn should_be_view() {
+            let result = operation().is_view();
+            assert_eq!(result, true);
+        }
+
+        #[test]
+        fn should_have_no_sponsor() {
+            let result = operation().sponsor();
+            assert_eq!(result, Some(key()));
+        }
+
+        #[test]
+        fn should_have_no_session() {
+            let result = operation().session();
+            assert_eq!(result, None);
+        }
+    }
+
+    mod edit_site {
+        use super::*;
+
+        fn operation() -> Operation {
+            Operation::EditSite
+        }
+
+        #[test]
+        fn should_not_be_view() {
+            let result = operation().is_view();
+            assert_eq!(result, false);
+        }
+
+        #[test]
+        fn should_have_no_sponsor() {
+            let result = operation().sponsor();
+            assert_eq!(result, None);
+        }
+
+        #[test]
+        fn should_have_no_session() {
+            let result = operation().session();
+            assert_eq!(result, None);
+        }
+    }
+
+    mod edit_session {
+        use super::*;
+
+        fn key() -> SessionKey {
+            SessionKey::new("plop")
+        }
+
+        fn operation() -> Operation {
+            Operation::EditSession(key())
+        }
+
+        #[test]
+        fn should_not_be_view() {
+            let result = operation().is_view();
+            assert_eq!(result, false);
+        }
+
+        #[test]
+        fn should_have_no_sponsor() {
+            let result = operation().sponsor();
+            assert_eq!(result, None);
+        }
+
+        #[test]
+        fn should_have_session() {
+            let result = operation().session();
+            assert_eq!(result, Some(key()));
+        }
+    }
+
+    mod edit_speaker {
+        use super::*;
+
+        fn key() -> SpeakerKey {
+            SpeakerKey::new("plop")
+        }
+
+        fn operation() -> Operation {
+            Operation::EditSpeaker(key())
+        }
+
+        #[test]
+        fn should_not_be_view() {
+            let result = operation().is_view();
+            assert_eq!(result, false);
+        }
+
+        #[test]
+        fn should_have_no_sponsor() {
+            let result = operation().sponsor();
+            assert_eq!(result, None);
+        }
+
+        #[test]
+        fn should_have_no_session() {
+            let result = operation().session();
+            assert_eq!(result, None);
+        }
+    }
+
+    mod edit_sponsor {
+        use super::*;
+
+        fn key() -> SponsorKey {
+            SponsorKey::new("plop")
+        }
+
+        fn operation() -> Operation {
+            Operation::EditSponsor(key())
+        }
+
+        #[test]
+        fn should_not_be_view() {
+            let result = operation().is_view();
+            assert_eq!(result, false);
+        }
+
+        #[test]
+        fn should_have_no_sponsor() {
+            let result = operation().sponsor();
+            assert_eq!(result, Some(key()));
+        }
+
+        #[test]
+        fn should_have_no_session() {
+            let result = operation().session();
+            assert_eq!(result, None);
+        }
+    }
+}

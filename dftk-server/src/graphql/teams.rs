@@ -1,9 +1,10 @@
 use async_graphql::{InputObject, SimpleObject};
 use uuid::Uuid;
 
-use crate::graphql::socials::{SocialInputType, SocialOutputType};
 use dftk_common::models::team::member_type::{MemberType, MemberTypeKey};
 use dftk_common::models::team::{PartialTeamMember, TeamMember, TeamMemberKey};
+
+use crate::graphql::socials::{SocialInputType, SocialOutputType};
 
 #[SimpleObject]
 pub struct MemberTypeOutputType {

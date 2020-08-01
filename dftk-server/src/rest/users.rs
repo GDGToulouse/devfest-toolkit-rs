@@ -7,8 +7,7 @@ use dftk_common::acl::user::{Email, User};
 use dftk_database::Repositories;
 
 use crate::rejection::Oops;
-use crate::rest::{with_repo, MAX_BODY_LENGTH};
-use crate::ServerContext;
+use crate::{with_repo, ServerContext, MAX_BODY_LENGTH};
 
 /// Provide user routes
 ///
@@ -82,7 +81,7 @@ async fn update_user(
     let ChangePassword { old, new } = change_password;
     let info = repos
         .user()
-        .change_password(&email, old.as_str(), new.as_str())
+        .change_password(&email, old.as_bytes(), new.as_bytes())
         .await
         .map_err(Oops::db)?;
     info!("Updated user {:?}", info);

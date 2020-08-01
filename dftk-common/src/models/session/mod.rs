@@ -66,6 +66,16 @@ impl Into<String> for SessionKey {
     }
 }
 
+impl FromStr for SessionKey {
+    type Err = anyhow::Error;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let key = SessionKey(s.into());
+
+        Ok(key)
+    }
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone, Copy)]
 pub enum SessionLevel {
     All,

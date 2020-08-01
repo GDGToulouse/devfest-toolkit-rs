@@ -12,6 +12,7 @@ use crate::models::sponsor::category::SponsorCategoryKey;
 use crate::models::sponsor::SponsorKey;
 use crate::models::team::member_type::MemberTypeKey;
 use crate::models::team::TeamMemberKey;
+use std::str::FromStr;
 
 #[Scalar]
 impl ScalarType for CategoryKey {
@@ -62,7 +63,7 @@ impl ScalarType for EventId {
 impl ScalarType for Lang {
     fn parse(value: Value) -> InputValueResult<Self> {
         if let Value::String(value) = value {
-            let lang = Lang::build(value)?;
+            let lang = Lang::from_str(value.as_str())?;
             Ok(lang)
         } else {
             Err(InputValueError::ExpectedType(value))

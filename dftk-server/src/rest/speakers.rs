@@ -2,17 +2,19 @@ use log::{debug, info};
 use warp::filters::BoxedFilter;
 use warp::{Filter, Rejection, Reply};
 
-use crate::rejection::Oops;
-use crate::rest::{with_repo, MAX_BODY_LENGTH};
-use crate::ServerContext;
-use dftk_common::models::speaker::{PartialSpeaker, SpeakerId};
+use dftk_common::models::speaker::{PartialSpeaker, SpeakerId, SpeakerKey};
 use dftk_database::speakers::SpeakerPatch;
 use dftk_database::Repositories;
+
+use crate::rejection::Oops;
+use crate::{with_repo, ServerContext, MAX_BODY_LENGTH};
 
 ///
 /// Provide speakers routes
 ///
 /// `GET    site/speakers`: list all speakers
+///
+/// `GET    site/speakers/{key}`: get a speaker
 ///
 /// `POST   site/speakers`: create a speaker
 ///
@@ -34,7 +36,7 @@ pub fn build_speakers_routes(context: &ServerContext) -> BoxedFilter<(impl Reply
 
     let get = warp::get() //
         .and(with_repo(context.repos())) //
-        .and(warp::path::param::<SpeakerId>())
+        .and(warp::path::param::<SpeakerKey>())
         .and_then(get_speaker);
 
     let delete = warp::delete()
@@ -78,9 +80,9 @@ async fn list_speakers(repos: Repositories) -> Result<impl Reply, Rejection> {
     Ok(result)
 }
 
-async fn get_speaker(repos: Repositories, id: SpeakerId) -> Result<impl Reply, Rejection> {
-    info!("Getting speaker {}", id);
-    let result = repos.speaker().find_by_id(id).await.map_err(Oops::db)?;
+async fn get_speaker(repos: Repositories, key: SpeakerKey) -> Result<impl Reply, Rejection> {
+    info!("Getting speaker {:?}", key);
+    let result = repos.speaker().find_by_key(key).await.map_err(Oops::db)?;
 
     result
         .map(|it| warp::reply::json(&it))

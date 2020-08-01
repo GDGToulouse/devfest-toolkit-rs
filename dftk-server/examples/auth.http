@@ -1,0 +1,5 @@
+### Login
+POST {{host}}/auth/login
+Content-Type: application/x-www-form-urlencoded
+
+email=plop@plop.io&password=naming dripping Landslide Jam cricket

@@ -6,8 +6,7 @@ use warp::{Filter, Rejection, Reply};
 use dftk_database::Repositories;
 
 use crate::rejection::Oops;
-use crate::rest::{with_repo, MAX_BODY_LENGTH};
-use crate::ServerContext;
+use crate::{with_repo, ServerContext, MAX_BODY_LENGTH};
 
 ///
 /// Provide team member types routes

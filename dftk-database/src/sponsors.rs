@@ -2,7 +2,7 @@ use anyhow::{bail, Result};
 use mongodb::Database;
 use uuid::Uuid;
 
-use dftk_common::models::sponsor::{PartialSponsor, Sponsor};
+use dftk_common::models::sponsor::{PartialSponsor, Sponsor, SponsorKey};
 
 use crate::repository::MongodbRepository;
 
@@ -34,8 +34,9 @@ impl SponsorRepository {
         self.repo.find_all().await
     }
 
-    pub async fn find_by_key(&self, key: &str) -> Result<Option<Sponsor>> {
-        self.repo.find_by_key(key).await
+    pub async fn find_by_key(&self, key: SponsorKey) -> Result<Option<Sponsor>> {
+        let k: String = key.into();
+        self.repo.find_by_key(k.as_str()).await
     }
 
     pub async fn update(&self, id: Uuid, element: PartialSponsor) -> Result<Sponsor> {

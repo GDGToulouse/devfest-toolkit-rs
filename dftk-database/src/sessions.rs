@@ -279,6 +279,11 @@ impl SessionRepository {
         self.repo.find_by_id(sid.as_str()).await
     }
 
+    pub async fn find_by_key(&self, key: SessionKey) -> Result<Option<SessionDocument>> {
+        let k: String = key.into();
+        self.repo.find_by_key(k.as_str()).await
+    }
+
     // From Conference Hall
     pub async fn synchronize_sessions(&self, sessions: &[Session]) -> Result<Vec<Session>> {
         info!("Synchronize site sessions");

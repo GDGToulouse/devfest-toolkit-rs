@@ -8,8 +8,7 @@ use dftk_database::Repositories;
 use dftk_hugo_site::generate;
 
 use crate::rejection::Oops;
-use crate::rest::{with_context, with_repo, MAX_BODY_LENGTH};
-use crate::ServerContext;
+use crate::{with_context, with_repo, ServerContext, MAX_BODY_LENGTH};
 
 ///
 /// Provide site routes

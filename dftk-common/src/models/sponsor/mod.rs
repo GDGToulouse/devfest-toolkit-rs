@@ -7,6 +7,7 @@ use crate::models::socials::Social;
 use crate::models::sponsor::category::SponsorCategoryKey;
 use crate::models::Markdown;
 use crate::new_id;
+use std::str::FromStr;
 
 pub mod category;
 
@@ -28,6 +29,16 @@ impl Into<String> for SponsorKey {
 impl From<String> for SponsorKey {
     fn from(s: String) -> Self {
         SponsorKey(s)
+    }
+}
+
+impl FromStr for SponsorKey {
+    type Err = anyhow::Error;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        let key = SponsorKey(s.into());
+
+        Ok(key)
     }
 }
 

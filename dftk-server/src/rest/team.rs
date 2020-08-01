@@ -7,8 +7,7 @@ use dftk_common::models::team::PartialTeamMember;
 use dftk_database::Repositories;
 
 use crate::rejection::Oops;
-use crate::rest::{with_repo, MAX_BODY_LENGTH};
-use crate::ServerContext;
+use crate::{with_repo, ServerContext, MAX_BODY_LENGTH};
 
 ///
 /// Provide team members routes

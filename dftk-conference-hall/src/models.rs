@@ -6,7 +6,7 @@ use chrono::{DateTime, Utc};
 use serde::Deserialize;
 use uuid::Uuid;
 
-use dftk_common::models::language::Languages;
+use dftk_common::models::language::{Lang, Languages};
 use dftk_common::models::session::category::{CategoryKey, SessionCategory};
 use dftk_common::models::session::format::{FormatKey, SessionFormat};
 use dftk_common::models::session::{Session, SessionId};
@@ -266,7 +266,11 @@ impl ChTalk {
             Some(it) => Some(it.into()),
             None => None,
         };
-        let language = self.language.clone().into();
+        let language = self
+            .language
+            .as_ref()
+            .map(|it| Lang::from_user_field(it.as_str()))
+            .unwrap_or_else(Lang::default);
         let video_id = None;
         let presentation = None;
         let draft = match self.state {

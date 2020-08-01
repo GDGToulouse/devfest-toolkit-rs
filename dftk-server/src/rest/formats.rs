@@ -6,8 +6,8 @@ use warp::{Filter, Rejection, Reply};
 use dftk_database::Repositories;
 
 use crate::rejection::Oops;
-use crate::rest::{with_repo, NameDescription, MAX_BODY_LENGTH};
-use crate::ServerContext;
+use crate::rest::NameDescription;
+use crate::{with_repo, ServerContext, MAX_BODY_LENGTH};
 
 ///
 /// Provide session formats routes

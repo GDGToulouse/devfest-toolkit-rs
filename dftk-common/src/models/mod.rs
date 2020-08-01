@@ -34,17 +34,31 @@ mod tests {
         use super::*;
 
         #[test]
-        fn should_create_markdown_from_string() {
+        fn should_create_from_string() {
             let given = String::from("plop");
             let result: Markdown = given.clone().into();
             assert_eq!(result.0, given);
         }
 
         #[test]
-        fn should_transform_markdown_to_string() {
+        fn should_transform_to_string() {
             let md = Markdown(String::from("plop"));
             let result: String = md.clone().into();
             assert_eq!(result, md.0);
+        }
+
+        #[test]
+        fn should_be_serializable() {
+            let md = Markdown("Plop".into());
+            let result = serde_json::to_string(&md);
+            assert!(result.is_ok());
+        }
+
+        #[test]
+        fn should_be_deserializable() {
+            let json = r#""Plop""#;
+            let result = serde_json::from_str::<Markdown>(json);
+            assert!(result.is_ok());
         }
     }
 }

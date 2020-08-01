@@ -1,11 +1,7 @@
 #[cfg(feature = "rest")]
-use std::convert::Infallible;
-
 use serde::Deserialize;
 use warp::filters::BoxedFilter;
 use warp::{Filter, Reply};
-
-use dftk_database::Repositories;
 
 use crate::rest::categories::build_session_categories_routes;
 use crate::rest::formats::build_session_formats_routes;
@@ -29,20 +25,6 @@ mod sponsors_categories;
 mod team;
 mod team_member_type;
 mod users;
-
-const MAX_BODY_LENGTH: u64 = 1024 * 16; // 16kb
-
-fn with_repo(
-    repos: Repositories,
-) -> impl Filter<Extract = (Repositories,), Error = Infallible> + Clone {
-    warp::any().map(move || repos.clone())
-}
-
-fn with_context(
-    context: ServerContext,
-) -> impl Filter<Extract = (ServerContext,), Error = Infallible> + Clone {
-    warp::any().map(move || context.clone())
-}
 
 #[derive(Deserialize, Debug, Clone)]
 struct NameDescription {
