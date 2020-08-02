@@ -1,0 +1,10 @@
+# curl 'http://localhost:8080/graphql' -X OPTIONS -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:80.0) Gecko/20100101 Firefox/80.0' -H 'Accept: */*' -H 'Accept-Language: en-US,en;q=0.5' --compressed -H 'Access-Control-Request-Method: POST' -H 'Access-Control-Request-Headers: content-type' -H 'Referer: http://localhost:1234/index.html' -H 'Origin: http://localhost:1234' -H 'DNT: 1' -H 'Connection: keep-alive' -H 'Pragma: no-cache' -H 'Cache-Control: no-cache'
+OPTIONS http://localhost:8080/graphql
+Accept-Language: en-US,en;q=0.5
+Access-Control-Request-Method: POST
+Access-Control-Request-Headers: content-type
+Referer: http://localhost:1234/index.html
+Origin: http://localhost:1234
+
+###
+

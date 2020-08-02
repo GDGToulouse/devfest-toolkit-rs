@@ -1,0 +1,27 @@
+{
+  "name": "dftk-frontend",
+  "version": "0.1.0",
+  "description": "",
+  "source": "src/index.ts",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "format": "npx prettier --write src/",
+    "lint": "npx eslint src/",
+    "start": "miniserve --port 1234 src/",
+    "build": "node build/index.mjs"
+  },
+  "author": "igor <ilaborie@gmail.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "eslint": "^7.6.0",
+    "prettier": "^2.0.5",
+    "rimraf": "^3.0.2"
+  },
+  "browserslist": [
+    "last 1 major versions and >.5%",
+    "not IE 11",
+    "not IE_Mob 11",
+    "not dead"
+  ]
+}

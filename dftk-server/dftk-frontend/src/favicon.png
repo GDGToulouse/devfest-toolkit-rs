@@ -1,0 +1,11 @@
+--2020-08-08 16:24:07--  https://devfesttoulouse.fr/favicon-32x32.png
+Resolving devfesttoulouse.fr (devfesttoulouse.fr)... 151.101.65.195, 151.101.1.195
+Connecting to devfesttoulouse.fr (devfesttoulouse.fr)|151.101.65.195|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 661 [image/png]
+Saving to: ‘favicon-32x32.png’
+
+     0K                                                       100% 57.3M=0s
+
+2020-08-08 16:24:07 (57.3 MB/s) - ‘favicon-32x32.png’ saved [661/661]
+

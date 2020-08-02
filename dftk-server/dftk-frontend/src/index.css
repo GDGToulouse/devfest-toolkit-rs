@@ -1,0 +1,64 @@
+/* Normalize */
+@import "./styles/normalize.css";
+
+/* Theme */
+:root {
+  /* Base style */
+  --base-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  --base: #fefefe;
+  --base-text: #222;
+  --action-text: #64b5f6;
+  --darken: rgba(0, 0, 0, 0.1);
+  --lighten: hsla(0, 100%, 100%, 0.1);
+
+  /* App style */
+  --app-navbar-bg: #0d47a1;
+  --app-navbar-fg: #fff;
+  --app-selected-bg: teal;
+  --app-selected-fg: #fff;
+  --app-content-bg: var(--base);
+  --app-content-fg: var(--base-text);
+  --app-footer-bg: #000;
+  --app-footer-fg: #777;
+}
+
+/* Dark Theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --base: #222;
+    --base-text: #ddd;
+    --darken: hsla(0, 100%, 100%, 0.1);
+    --lighten: rgba(0, 0, 0, 0.1);
+
+    --app-navbar-bg: #0d47a1;
+    --app-navbar-fg: #fff;
+    --app-content-bg: var(--base);
+    --app-content-fg: var(--base-text);
+    --app-footer-bg: #000;
+    --app-footer-fg: #777;
+  }
+}
+
+body {
+  font-family: var(--base-font);
+  background-color: var(--base);
+  color: var(--base-text);
+}
+
+/* base... */
+
+html {
+  box-sizing: border-box;
+}
+
+* {
+  box-sizing: inherit;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+}
+
+/* Pages... */
