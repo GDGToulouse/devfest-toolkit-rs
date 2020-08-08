@@ -1,3 +1,5 @@
+use std::str::FromStr;
+
 #[cfg(feature = "graphql")]
 use async_graphql::{InputValueError, InputValueResult, Scalar, ScalarType, Value};
 
@@ -12,7 +14,6 @@ use crate::models::sponsor::category::SponsorCategoryKey;
 use crate::models::sponsor::SponsorKey;
 use crate::models::team::member_type::MemberTypeKey;
 use crate::models::team::TeamMemberKey;
-use std::str::FromStr;
 
 #[Scalar]
 impl ScalarType for CategoryKey {

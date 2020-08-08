@@ -1,8 +1,13 @@
-import { createAction, queryAction } from "../../fmwk/actions.mjs";
-import { createLogger } from "../../fmwk/logger.mjs";
-import { lens } from "../../fmwk/optics.mjs";
+import {createFieldset, createInputField} from "../../dom-helpers.mjs";
+import {createAction, queryAction} from "../../fmwk/actions.mjs";
+import {createLogger} from "../../fmwk/logger.mjs";
+import {lens} from "../../fmwk/optics.mjs";
+import {FORM_CSS} from "../form.js";
 
-const CSS = ``;
+const CSS = `
+${FORM_CSS}
+
+`;
 
 const siteInfo$ = lens("site.info");
 
@@ -51,7 +56,23 @@ export class GeneralElt extends HTMLElement {
     headerElt.appendChild(h2);
 
     // Form
+    const idElt = createInputField('id', 'Id');
+    const nameElt = createInputField('name', 'Name');
+
+    const addressElt = createFieldset('Address');
     // FIXME
+
+    const languagesElt = createFieldset('Languages');
+    // FIXME
+
+    const datesElt = createFieldset('Dates');
+    // FIXME
+
+    this.formElt.appendChild(idElt);
+    this.formElt.appendChild(nameElt);
+    this.formElt.appendChild(addressElt);
+    this.formElt.appendChild(languagesElt);
+    this.formElt.appendChild(datesElt);
 
     // Construction
     this.shadowRoot.appendChild(styleElt);
@@ -73,7 +94,10 @@ export class GeneralElt extends HTMLElement {
 
   // Outer events
   updateInfo(info) {
-    this.formElt.innerHTML = `<pre>${JSON.stringify(info, null, 2)}</pre>`;
+    // FIXME
+    const {id, name, address, languages, dates} = info;
+    this.formElt['id'].value = id;
+    this.formElt['name'].value = name;
   }
 
   // Inner events

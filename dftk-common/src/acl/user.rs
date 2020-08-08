@@ -1,13 +1,13 @@
+use core::fmt;
 use std::str::FromStr;
 
 use anyhow::{anyhow, Error, Result};
 use email::Mailbox;
+use serde::de::Visitor;
 use serde::{de, Deserialize, Deserializer, Serialize};
 
 use crate::models::speaker::SpeakerKey;
 use crate::models::sponsor::SponsorKey;
-use core::fmt;
-use serde::de::Visitor;
 
 #[derive(Serialize, Debug, Clone, Eq, PartialEq)]
 pub struct Email(String);

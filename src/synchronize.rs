@@ -1,5 +1,4 @@
 use anyhow::Result;
-use log::{debug, info};
 
 use dftk_conference_hall::{read_event, ConferenceHallConfig};
 use dftk_database::{MongodbConfig, Repositories, SynchronizeResult};

@@ -3,7 +3,6 @@ use std::fmt::Display;
 use std::str::FromStr;
 
 use anyhow::{anyhow, Result};
-use log::warn;
 use serde::export::Formatter;
 use serde::{Deserialize, Serialize};
 use slug::slugify;

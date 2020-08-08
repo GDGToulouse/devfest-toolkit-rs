@@ -1,9 +1,12 @@
+#[macro_use]
+extern crate log;
+
 use std::convert::Infallible;
 use std::net::SocketAddr;
 
 use anyhow::Result;
-use warp::{Filter, Reply};
 use warp::filters::BoxedFilter;
+use warp::{Filter, Reply};
 
 use dftk_conference_hall::ConferenceHallConfig;
 use dftk_database::{MongodbConfig, Repositories};
@@ -105,13 +108,13 @@ impl ServerContext {
 
 fn with_repo(
     repos: Repositories,
-) -> impl Filter<Extract=(Repositories, ), Error=Infallible> + Clone {
+) -> impl Filter<Extract = (Repositories,), Error = Infallible> + Clone {
     warp::any().map(move || repos.clone())
 }
 
 fn with_context(
     context: ServerContext,
-) -> impl Filter<Extract=(ServerContext, ), Error=Infallible> + Clone {
+) -> impl Filter<Extract = (ServerContext,), Error = Infallible> + Clone {
     warp::any().map(move || context.clone())
 }
 
@@ -119,14 +122,14 @@ fn with_context(
 
 // GraphQL routes
 #[cfg(not(feature = "graphql"))]
-fn graphql_routes(context: &ServerContext) -> BoxedFilter<(impl Reply, )> {
+fn graphql_routes(context: &ServerContext) -> BoxedFilter<(impl Reply,)> {
     warp::path(context.server_config().graphql_path)
         .map(|| warp::reply::with_status("GraphQL is disabled", StatusCode::METHOD_NOT_ALLOWED))
         .boxed()
 }
 
 #[cfg(feature = "graphql")]
-fn graphql_routes(context: &ServerContext) -> BoxedFilter<(impl Reply, )> {
+fn graphql_routes(context: &ServerContext) -> BoxedFilter<(impl Reply,)> {
     use crate::graphql::build_graphql_routes;
 
     warp::path(context.server_config().graphql_path)
@@ -136,14 +139,14 @@ fn graphql_routes(context: &ServerContext) -> BoxedFilter<(impl Reply, )> {
 
 // Rest routes
 #[cfg(not(feature = "rest"))]
-fn rest_routes(context: &ServerContext) -> BoxedFilter<(impl Reply, )> {
+fn rest_routes(context: &ServerContext) -> BoxedFilter<(impl Reply,)> {
     warp::path(context.server_config().rest_path)
         .map(|| warp::reply::with_status("REST is disabled", StatusCode::METHOD_NOT_ALLOWED))
         .boxed()
 }
 
 #[cfg(feature = "rest")]
-fn rest_routes(context: &ServerContext) -> BoxedFilter<(impl Reply, )> {
+fn rest_routes(context: &ServerContext) -> BoxedFilter<(impl Reply,)> {
     use crate::rest::build_rest_routes;
     warp::path(context.server_config().rest_path)
         .and(build_rest_routes(&context))
@@ -151,12 +154,12 @@ fn rest_routes(context: &ServerContext) -> BoxedFilter<(impl Reply, )> {
 }
 
 // Auth routes
-fn auth_routes(context: &ServerContext) -> BoxedFilter<(impl Reply, )> {
+fn auth_routes(context: &ServerContext) -> BoxedFilter<(impl Reply,)> {
     warp::path("auth").and(build_auth_routes(&context)).boxed()
 }
 
 // All routes
-fn routes(context: &ServerContext) -> BoxedFilter<(impl Reply, )> {
+fn routes(context: &ServerContext) -> BoxedFilter<(impl Reply,)> {
     let cors = warp::cors()
         .allow_methods(vec!["GET", "POST", "PUT", "DELETE", "OPTIONS"])
         .allow_headers(vec!["Content-Type"])

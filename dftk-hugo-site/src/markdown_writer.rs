@@ -3,7 +3,6 @@ use std::io::Write;
 use std::path::PathBuf;
 
 use anyhow::Result;
-use log::{debug, info};
 use serde::Serialize;
 
 use dftk_common::models::Markdown;

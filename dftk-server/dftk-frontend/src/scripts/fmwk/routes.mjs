@@ -1,5 +1,5 @@
-import { lens } from "./optics.mjs";
-import { createLogger } from "./logger.mjs";
+import {lens} from "./optics.mjs";
+import {createLogger} from "./logger.mjs";
 
 const logger = createLogger("Router");
 

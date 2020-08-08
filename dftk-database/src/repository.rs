@@ -1,7 +1,6 @@
 use std::marker::PhantomData;
 
 use anyhow::{anyhow, Result};
-use log::{debug, info};
 use mongodb::bson::doc;
 use mongodb::options::UpdateOptions;
 use mongodb::{Collection, Database};

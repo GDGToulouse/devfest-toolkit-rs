@@ -1,10 +1,10 @@
 use std::fs::{create_dir_all, File};
 use std::path::PathBuf;
 
-use crate::SiteConfig;
 use anyhow::Result;
-use log::info;
 use serde::Serialize;
+
+use crate::SiteConfig;
 
 pub struct DataWriter {
     data_path: PathBuf,

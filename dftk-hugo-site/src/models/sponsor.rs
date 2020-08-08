@@ -1,11 +1,12 @@
 use serde::{Deserialize, Serialize};
 
-use crate::markdown_writer::FrontMatterMarkdown;
 use dftk_common::models::language::Lang;
 use dftk_common::models::socials::Social;
 use dftk_common::models::sponsor::category::SponsorCategoryKey;
 use dftk_common::models::sponsor::{Sponsor, SponsorKey};
 use dftk_common::models::Markdown;
+
+use crate::markdown_writer::FrontMatterMarkdown;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct SponsorFrontMatter {

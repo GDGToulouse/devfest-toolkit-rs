@@ -1,4 +1,4 @@
-import { createLogger } from "./logger.mjs";
+import {createLogger} from "./logger.mjs";
 
 const logger = createLogger("Store");
 

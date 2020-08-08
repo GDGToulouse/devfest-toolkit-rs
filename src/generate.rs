@@ -1,5 +1,4 @@
 use anyhow::Result;
-use log::{debug, info};
 
 use dftk_database::{MongodbConfig, Repositories};
 use dftk_hugo_site::site_writer::GenerateResult;

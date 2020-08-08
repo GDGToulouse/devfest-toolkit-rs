@@ -1,3 +1,5 @@
+// Menus
+
 export const createMenubar = (label) => {
   const elt = document.createElement("ul");
   elt.setAttribute("role", "menubar");
@@ -28,4 +30,37 @@ export const activateLink = (parentElt, key) => {
   if (newPage) {
     newPage.classList.add("active");
   }
+};
+
+
+// Form
+export const createFieldset = (legend) => {
+  const elt = document.createElement('fieldset');
+  if(legend) {
+    const legendElt = document.createElement('legend');
+    legendElt.textContent = legend;
+    elt.appendChild(legendElt);
+  }
+  return elt;
+}
+
+export const createInputField = (name, label, type) => {
+  const field = document.createElement('div');
+  field.classList.add('field', `field-${name}`);
+  const id = `fld-${name}`;
+
+  if (label) {
+    const labelElt = document.createElement('label');
+    labelElt.htmlFor = id;
+    labelElt.textContent = label
+    field.appendChild(labelElt);
+  }
+
+  const inputElt = document.createElement('input');
+  inputElt.type = type || 'text';
+  inputElt.id = id;
+  inputElt.name = name;
+  field.appendChild(inputElt);
+
+  return field;
 };

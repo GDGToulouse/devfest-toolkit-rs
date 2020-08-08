@@ -1,13 +1,14 @@
+#[macro_use]
+extern crate log;
+
 use anyhow::Result;
-use colored::Colorize;
-use fern::colors::{Color, ColoredLevelConfig};
-use log::info;
+
+use dftk_server::{run_server, ServerContext};
 
 use crate::clean::run_clean;
 use crate::generate::run_generate;
 use crate::opts::Command;
 use crate::synchronize::run_synchronize;
-use dftk_server::{run_server, ServerContext};
 
 pub mod clean;
 pub mod generate;
@@ -52,42 +53,6 @@ pub async fn run_command(command: Command) -> Result<()> {
             run_clean(site_dir).await?
         }
     };
-
-    Ok(())
-}
-
-pub fn configure_log(debug: bool) -> Result<()> {
-    let colors = ColoredLevelConfig::new()
-        // use builder methods
-        .debug(Color::Green)
-        .info(Color::Blue)
-        .warn(Color::Yellow)
-        .error(Color::Red);
-
-    let level = if debug {
-        log::LevelFilter::Debug
-    } else {
-        log::LevelFilter::Info
-    };
-
-    fern::Dispatch::new()
-        // Perform allocation-free log formatting
-        .format(move |out, message, record| {
-            // let target = record.target().split("::").last().unwrap_or_default();
-            let target = record.target();
-
-            out.finish(format_args!(
-                "{} [{:<5}] {} - {}",
-                chrono::Local::now().format("%H:%M:%S.%3f"),
-                colors.color(record.level()),
-                target.cyan(),
-                message
-            ))
-        })
-        .level(level)
-        .level_for("hyper", log::LevelFilter::Info)
-        .chain(std::io::stdout())
-        .apply()?;
 
     Ok(())
 }

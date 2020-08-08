@@ -2,7 +2,6 @@ use std::collections::HashMap;
 use std::str::FromStr;
 
 use cookie::{Cookie, SameSite};
-use log::info;
 use time::Duration;
 use warp::filters::BoxedFilter;
 use warp::http::Response;

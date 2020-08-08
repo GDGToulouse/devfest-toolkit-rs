@@ -1,3 +1,5 @@
+use std::str::FromStr;
+
 use serde::{Deserialize, Serialize};
 use slug::slugify;
 use uuid::Uuid;
@@ -7,7 +9,6 @@ use crate::models::socials::Social;
 use crate::models::sponsor::category::SponsorCategoryKey;
 use crate::models::Markdown;
 use crate::new_id;
-use std::str::FromStr;
 
 pub mod category;
 

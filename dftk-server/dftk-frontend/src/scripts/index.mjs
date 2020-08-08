@@ -1,25 +1,25 @@
-import { ApplicationElt } from "./application/application.mjs";
+import {ApplicationElt} from "./application/application.mjs";
 import {
-  GeneralElt,
-  MemberTypesElt,
-  RoomsElt,
-  ScheduleElt,
-  SessionFormatsElt,
-  SessionsCategoriesElt,
-  SessionsElt,
-  SlotsElt,
-  SpeakersElt,
-  SponsorCategoriesElt,
-  SponsorsElt,
-  TeamElt,
-  UsersElt,
+    GeneralElt,
+    MemberTypesElt,
+    RoomsElt,
+    ScheduleElt,
+    SessionFormatsElt,
+    SessionsCategoriesElt,
+    SessionsElt,
+    SlotsElt,
+    SpeakersElt,
+    SponsorCategoriesElt,
+    SponsorsElt,
+    TeamElt,
+    UsersElt,
 } from "./pages/index.mjs";
-import { Router } from "./fmwk/routes.mjs";
-import { Store } from "./fmwk/store.mjs";
-import { effect } from "./reducer.mjs";
-import { pages } from "./routes.mjs";
-import { defaultState } from "./state.mjs";
-import { createLogger } from "./fmwk/logger.mjs";
+import {Router} from "./fmwk/routes.mjs";
+import {Store} from "./fmwk/store.mjs";
+import {effect} from "./reducer.mjs";
+import {pages} from "./routes.mjs";
+import {defaultState} from "./state.mjs";
+import {createLogger} from "./fmwk/logger.mjs";
 
 // Register Web Components
 customElements.define("dftk-app", ApplicationElt);

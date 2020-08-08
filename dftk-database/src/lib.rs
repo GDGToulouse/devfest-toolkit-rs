@@ -1,8 +1,10 @@
+#[macro_use]
+extern crate log;
+
 use std::fmt::Debug;
 
 use anyhow::{anyhow, Context, Result};
 use bson::Document;
-use log::{debug, info};
 use mongodb::{Client, Cursor};
 use serde::{Deserialize, Serialize};
 use tokio::stream::StreamExt;

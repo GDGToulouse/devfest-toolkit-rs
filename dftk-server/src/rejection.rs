@@ -1,7 +1,6 @@
 use std::convert::Infallible;
 
 use anyhow::Error;
-use log::{error, info};
 use serde::Serialize;
 use warp::body::BodyDeserializeError;
 use warp::http::StatusCode;

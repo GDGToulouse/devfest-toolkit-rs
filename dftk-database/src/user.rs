@@ -2,7 +2,6 @@ use anyhow::{anyhow, Result};
 use argon2::Config;
 use bson::Document;
 use chbs::passphrase;
-use log::{debug, info};
 use mongodb::bson::doc;
 use mongodb::options::{FindOneAndUpdateOptions, FindOptions};
 use mongodb::{Collection, Database};

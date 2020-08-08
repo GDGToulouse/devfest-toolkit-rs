@@ -1,5 +1,4 @@
 use anyhow::{bail, ensure, Result};
-use log::{debug, info};
 use mongodb::bson::doc;
 use mongodb::{Collection, Database};
 use serde::{Deserialize, Serialize};

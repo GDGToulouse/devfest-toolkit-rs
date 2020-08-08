@@ -1,5 +1,7 @@
+#[macro_use]
+extern crate log;
+
 use anyhow::Result;
-use log::info;
 
 use dftk_common::models::language::Languages;
 use dftk_common::models::site::{EventId, Site};

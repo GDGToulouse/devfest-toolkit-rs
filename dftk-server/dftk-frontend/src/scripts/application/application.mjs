@@ -1,10 +1,6 @@
-import {
-  activateLink,
-  createMenubar,
-  createMenuItem,
-} from "../dom-helpers.mjs";
-import { activeRoute$, link } from "../fmwk/routes.mjs";
-import { createLogger } from "../fmwk/logger.mjs";
+import {activateLink, createMenubar, createMenuItem,} from "../dom-helpers.mjs";
+import {activeRoute$, link} from "../fmwk/routes.mjs";
+import {createLogger} from "../fmwk/logger.mjs";
 
 const CSS = `:host {
     display: grid;
@@ -38,7 +34,7 @@ const CSS = `:host {
 }
 
 .menubar > li {
-    padding: .5em 1em;
+    padding: .5em .25em;
     list-style: none;
     display: flex;
     align-items: center;
@@ -49,7 +45,7 @@ const CSS = `:host {
 }
 
 .menubar > li > a {
-    padding: .5em 1em;
+    padding: .5em .25em;
     color: inherit;
     text-decoration: none;
     transform: skewX(var(--angle));

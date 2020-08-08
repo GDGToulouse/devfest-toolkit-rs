@@ -1,4 +1,3 @@
-use log::info;
 use warp::filters::BoxedFilter;
 use warp::{Filter, Reply};
 

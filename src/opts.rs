@@ -9,19 +9,11 @@ use dftk_server::ServerConfig;
 
 #[derive(Debug, Clone, StructOpt)]
 pub struct CliOpt {
-    /// Switch to the debug mode (more logs)
-    #[structopt(long)]
-    debug: bool,
-
     #[structopt(subcommand)]
     command: Command,
 }
 
 impl CliOpt {
-    pub fn debug(&self) -> bool {
-        self.debug
-    }
-
     pub fn command(&self) -> Command {
         self.command.clone()
     }

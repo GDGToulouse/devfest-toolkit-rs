@@ -1,4 +1,4 @@
-import { defaultRoute } from "./routes.mjs";
+import {defaultRoute} from "./routes.mjs";
 
 // Default State
 export const defaultState = () => {

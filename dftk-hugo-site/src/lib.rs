@@ -1,8 +1,10 @@
+#[macro_use]
+extern crate log;
+
 use std::fs::remove_file;
 use std::path::PathBuf;
 
 use anyhow::Result;
-use log::{debug, info, trace, warn};
 
 use dftk_common::models::site::Site;
 

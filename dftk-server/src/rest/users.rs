@@ -1,4 +1,3 @@
-use log::{debug, info};
 use serde::Deserialize;
 use warp::filters::BoxedFilter;
 use warp::{Filter, Reply};

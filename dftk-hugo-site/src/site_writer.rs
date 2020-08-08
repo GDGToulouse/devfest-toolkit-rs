@@ -1,7 +1,6 @@
 use std::fs::{create_dir_all, File};
 
 use anyhow::Result;
-use log::info;
 use serde::Serialize;
 
 use dftk_common::models::site::Site;

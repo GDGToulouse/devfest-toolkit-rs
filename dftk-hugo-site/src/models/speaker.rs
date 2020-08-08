@@ -1,9 +1,10 @@
 use serde::{Deserialize, Serialize};
 
-use crate::markdown_writer::FrontMatterMarkdown;
 use dftk_common::models::socials::Social;
 use dftk_common::models::speaker::{Speaker, SpeakerId, SpeakerKey};
 use dftk_common::models::Markdown;
+
+use crate::markdown_writer::FrontMatterMarkdown;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct SpeakerFrontMatter {

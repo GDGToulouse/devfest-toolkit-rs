@@ -1,4 +1,4 @@
-import { createLogger } from "../../fmwk/logger.mjs";
+import {createLogger} from "../../fmwk/logger.mjs";
 
 const CSS = ``;
 

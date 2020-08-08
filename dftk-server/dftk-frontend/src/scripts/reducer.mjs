@@ -1,5 +1,5 @@
-import { gqlQuery } from "./fmwk/graphql.mjs";
-import { createLogger } from "./fmwk/logger.mjs";
+import {gqlQuery} from "./fmwk/graphql.mjs";
+import {createLogger} from "./fmwk/logger.mjs";
 
 const logger = createLogger("Effect");
 

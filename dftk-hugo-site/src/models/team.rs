@@ -1,10 +1,11 @@
 use serde::{Deserialize, Serialize};
 
-use crate::markdown_writer::FrontMatterMarkdown;
 use dftk_common::models::socials::Social;
 use dftk_common::models::team::member_type::MemberTypeKey;
 use dftk_common::models::team::{TeamMember, TeamMemberKey};
 use dftk_common::models::Markdown;
+
+use crate::markdown_writer::FrontMatterMarkdown;
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct TeamMemberFrontMatter {
