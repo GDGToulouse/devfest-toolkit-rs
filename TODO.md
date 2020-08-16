@@ -19,5 +19,13 @@ Clean code, introduce macro to avoid repetition
 
 Provide api to define ticket status (billetweb)
 
-...
+Sponsors Data:
 
+- What is our mission?
+- Who are we?
+- What do we do? 
+- Some links to introduce you: 
+
+Use Actix-web, eyre-color
+
+Use structural macro for authorization

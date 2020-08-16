@@ -1,5 +1,4 @@
-import {gqlQuery} from "./fmwk/graphql.mjs";
-import {createLogger} from "./fmwk/logger.mjs";
+import { gqlQuery, createLogger } from "./fmwk/index.mjs";
 
 const logger = createLogger("Effect");
 
@@ -10,6 +9,12 @@ export const effect = (store, action) => {
     case "graphql-query":
       return queryGraphql(store, action);
 
+    case "general-action":
+      return queryGraphql(store, { query: `mutation { ${action.action} {} }` });
+
+    case "save-action":
+      return queryGraphql(store, { query: `mutation { ${action.action} {} }` });
+
     default:
       throw new Error(`Unknown action ~${action}`);
   }
@@ -17,6 +22,8 @@ export const effect = (store, action) => {
 
 const queryGraphql = async (store, { selector, query, projection }) => {
   const data = await gqlQuery(query);
-  const value = projection ? data[projection] : data;
-  store.updateState(selector, value);
+  if (selector) {
+    const value = projection ? data[projection] : data;
+    store.updateState(selector, value);
+  }
 };

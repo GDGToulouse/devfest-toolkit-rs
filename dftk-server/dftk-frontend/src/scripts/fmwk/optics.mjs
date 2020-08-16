@@ -1,4 +1,4 @@
-import {createLogger} from "./logger.mjs";
+import { createLogger } from "./logger.mjs";
 
 const logger = createLogger("Lens");
 
@@ -119,8 +119,21 @@ class Lens {
     });
   }
 
+  startsWith(other) {
+    for (let i = 0; i < this.key.length; i++) {
+      if (this.key[i] !== other.key[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   get(state) {
-    return this.path.reduce((acc, elt) => elt.get(acc), state);
+    return state === undefined
+      ? null
+      : this.path.reduce((acc, elt) => {
+          return acc ? elt.get(acc) : acc;
+        }, state);
   }
 
   set(state, value) {

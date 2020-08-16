@@ -6,7 +6,8 @@ use std::fmt::Debug;
 use anyhow::{anyhow, Context, Result};
 use bson::Document;
 use mongodb::{Client, Cursor};
-use serde::{Deserialize, Serialize};
+use serde::de::DeserializeOwned;
+use serde::Serialize;
 use tokio::stream::StreamExt;
 
 use dftk_common::acl::operation::Operation;
@@ -313,9 +314,9 @@ where
     Ok(doc)
 }
 
-fn from_document<'a, T>(document: Document) -> Result<T>
+fn from_document<T>(document: Document) -> Result<T>
 where
-    T: Deserialize<'a>,
+    T: DeserializeOwned,
 {
     let bson = document.clone().into();
     let element = bson::from_bson::<T>(bson)
@@ -324,9 +325,9 @@ where
     Ok(element)
 }
 
-async fn cursor_to_vec<'a, T>(cursor: &mut Cursor) -> Result<Vec<T>>
+async fn cursor_to_vec<T>(cursor: &mut Cursor) -> Result<Vec<T>>
 where
-    T: Deserialize<'a>,
+    T: DeserializeOwned,
 {
     let mut result = vec![];
     while let Some(doc) = cursor.next().await {

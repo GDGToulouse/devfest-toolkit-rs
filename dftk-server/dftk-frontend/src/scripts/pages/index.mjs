@@ -1,18 +1,32 @@
-export * from "./general/general.mjs";
-export * from "./general/users.mjs";
+import { GeneralElt } from "./general/general.mjs";
+import { UsersElt } from "./general/users.mjs";
+import { RoomsElt } from "./schedule/rooms.mjs";
+import { ScheduleElt } from "./schedule/schedule.mjs";
+import { SlotsElt } from "./schedule/slots.mjs";
+import { SessionsCategoriesElt } from "./sessions/categories.mjs";
+import { SessionFormatsElt } from "./sessions/formats.mjs";
+import { SessionsElt } from "./sessions/sessions.mjs";
+import { SpeakersElt } from "./speakers/speakers.mjs";
+import { SponsorCategoriesElt } from "./sponsors/categories.mjs";
+import { SponsorsElt } from "./sponsors/sponsors.mjs";
+import { MemberTypesElt } from "./team/member-types.mjs";
+import { TeamElt } from "./team/team.mjs";
 
-export * from "./sessions/sessions.mjs";
-export * from "./sessions/categories.mjs";
-export * from "./sessions/formats.mjs";
+customElements.define("dftk-general", GeneralElt);
+customElements.define("dftk-users", UsersElt);
 
-export * from "./speakers/speakers.mjs";
+customElements.define("dftk-sessions", SessionsElt);
+customElements.define("dftk-session-categories", SessionsCategoriesElt);
+customElements.define("dftk-session-formats", SessionFormatsElt);
 
-export * from "./sponsors/sponsors.mjs";
-export * from "./sponsors/categories.mjs";
+customElements.define("dftk-speakers", SpeakersElt);
 
-export * from "./team/team.mjs";
-export * from "./team/member-types.mjs";
+customElements.define("dftk-sponsors", SponsorsElt);
+customElements.define("dftk-sponsor-categories", SponsorCategoriesElt);
 
-export * from "./schedule/rooms.mjs";
-export * from "./schedule/slots.mjs";
-export * from "./schedule/schedule.mjs";
+customElements.define("dftk-team", TeamElt);
+customElements.define("dftk-member-types", MemberTypesElt);
+
+customElements.define("dftk-rooms", RoomsElt);
+customElements.define("dftk-slots", SlotsElt);
+customElements.define("dftk-schedule", ScheduleElt);

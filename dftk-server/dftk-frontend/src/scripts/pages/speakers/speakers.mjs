@@ -1,4 +1,4 @@
-import {createLogger} from "../../fmwk/logger.mjs";
+import { createLogger } from "../../fmwk/logger.mjs";
 
 const CSS = ``;
 
@@ -31,8 +31,7 @@ export class SpeakersElt extends HTMLElement {
     headerElt.appendChild(h2);
 
     // Construction
-    this.shadowRoot.appendChild(styleElt);
-    this.shadowRoot.appendChild(headerElt);
+    this.shadowRoot.append(styleElt, headerElt);
   }
 
   renderState() {

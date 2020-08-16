@@ -21,7 +21,7 @@ email = "0.0.21"
 
 serde = { version = "1.0", features = ["derive"] }
 
-async-graphql = { version = "1.16", optional = true }
+async-graphql = { version = "1.17", optional = true }
 
 [dev-dependencies]
 serde_json = "1.0"

@@ -1,9 +1,93 @@
-use async_graphql::SimpleObject;
+use async_graphql::{InputObject, SimpleObject};
 use chrono::{DateTime, Utc};
 
+use dftk_common::models::language::{Lang, Languages};
 use dftk_common::models::site::{Address, DateRange, EventId, Geolocation, Name, SiteInfo};
 
 use crate::graphql::languages::LanguagesOutputType;
+
+#[InputObject]
+pub struct SiteInfoInputType {
+    name: String,
+    address: AddressInputType,
+    languages: LanguagesInputType,
+    dates: DateRangeInputType,
+}
+
+impl SiteInfoInputType {
+    pub fn to_site_info(&self, event_id: &EventId) -> SiteInfo {
+        let name = self.name.clone();
+        let address = (&self.address).into();
+        let languages = (&self.languages).into();
+        let dates = (&self.dates).into();
+
+        SiteInfo::new(event_id.clone(), name, address, languages, dates)
+    }
+}
+
+#[InputObject]
+struct AddressInputType {
+    locality: NameInputType,
+    country: NameInputType,
+    lat_lng: GeolocationInputType,
+}
+
+impl Into<Address> for &AddressInputType {
+    fn into(self) -> Address {
+        Address::new(
+            (&self.locality).into(),
+            (&self.country).into(),
+            (&self.lat_lng).into(),
+        )
+    }
+}
+
+#[InputObject]
+struct NameInputType {
+    long_name: String,
+    short_name: String,
+}
+
+impl Into<Name> for &NameInputType {
+    fn into(self) -> Name {
+        Name::new(self.long_name.clone(), self.short_name.clone())
+    }
+}
+
+#[InputObject]
+struct GeolocationInputType {
+    lat: f64,
+    lng: f64,
+}
+impl Into<Geolocation> for &GeolocationInputType {
+    fn into(self) -> Geolocation {
+        Geolocation::new(self.lat, self.lng)
+    }
+}
+
+#[InputObject]
+pub struct LanguagesInputType {
+    main: Lang,
+    others: Vec<Lang>,
+}
+
+impl Into<Languages> for &LanguagesInputType {
+    fn into(self) -> Languages {
+        Languages::new(self.main.clone(), self.others.clone())
+    }
+}
+
+#[InputObject]
+struct DateRangeInputType {
+    start: DateTime<Utc>,
+    end: DateTime<Utc>,
+}
+
+impl Into<DateRange> for &DateRangeInputType {
+    fn into(self) -> DateRange {
+        DateRange::new(self.start, self.end)
+    }
+}
 
 #[SimpleObject]
 pub struct SiteInfoOutputType {

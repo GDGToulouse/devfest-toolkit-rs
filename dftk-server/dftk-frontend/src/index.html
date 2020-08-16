@@ -3,12 +3,399 @@
   <head>
     <meta charset="utf-8" />
     <title>DevFest Toolkit</title>
+    <meta name="description" content="Devfest Toolkit frontend" />
+    <meta name="author" content="Igor Laborie <ilaborie@gmail.com>" />
     <link rel="shortcut icon" href="favicon.png" />
+    <!-- Style -->
     <link rel="stylesheet" href="index.css" />
+    <!-- Script -->
     <script type="module" src="index.mjs"></script>
-  </head>
+    <!-- Templates -->
+    <template id="general">
+      <style>
+        :host {
+          display: flex;
+          flex-direction: column;
+          padding: 0.5em;
+        }
+        header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          border-bottom: thin solid hsla(0, 100%, 100%, 0.25);
+        }
+        header h2 {
+          margin: 0.5em 0;
+          flex: 1 1 auto;
+        }
+        header dftk-button {
+          margin: 0.25em 0.5em;
+        }
+        form {
+          margin: 0;
+          flex: 1 1 auto;
+          display: flex;
+          flex-direction: column;
+        }
 
+        form .content {
+          overflow: auto;
+          flex: 1 1 auto;
+          display: flex;
+          flex-direction: column;
+        }
+
+        li > label {
+          display: flex;
+          align-items: center;
+        }
+      </style>
+      <header>
+        <h2>General</h2>
+        <dftk-button label="Synchronize" action="synchronize"></dftk-button>
+        <dftk-button label="Generate" action="generate"></dftk-button>
+      </header>
+      <form action="POST">
+        <div class="content">
+          <dftk-fieldset>
+            <dftk-field id="id" label="Id">
+              <input id="id" type="text" name="id" readonly />
+            </dftk-field>
+            <dftk-field id="name" label="Name">
+              <input id="name" type="text" name="name" required />
+            </dftk-field>
+          </dftk-fieldset>
+          <dftk-fieldset label="Address">
+            <dftk-field id="locality" label="Locality">
+              <input
+                id="locality"
+                type="text"
+                name="address.locality.shortName"
+                class="short"
+                required
+              />
+              <input
+                type="text"
+                name="address.locality.longName"
+                class="long"
+                required
+              />
+            </dftk-field>
+            <dftk-field id="country" label="Country">
+              <input
+                id="country"
+                type="text"
+                name="address.country.shortName"
+                class="short"
+                required
+              />
+              <input
+                type="text"
+                name="address.country.longName"
+                class="long"
+                required
+              />
+            </dftk-field>
+            <dftk-field id="lat" label="Geolocation">
+              <input
+                id="lat"
+                type="number"
+                name="address.latLng.lat"
+                min="-90.0"
+                max="90.0"
+                class="lat"
+                step="0.0000001"
+              />
+              <input
+                type="number"
+                name="address.latLng.lng"
+                min="-180.0"
+                max="180.0"
+                class="lng"
+                step="0.0000001"
+              />
+            </dftk-field>
+          </dftk-fieldset>
+          <dftk-fieldset label="Languages">
+            <dftk-field label="Main">
+              <ul role="radiogroup">
+                <li>
+                  <label
+                    ><input
+                      type="radio"
+                      name="languages.main"
+                      value="en"
+                    />English</label
+                  >
+                </li>
+                <li>
+                  <label
+                    ><input
+                      type="radio"
+                      name="languages.main"
+                      value="fr"
+                    />French</label
+                  >
+                </li>
+                <li>
+                  <label
+                    ><input
+                      type="radio"
+                      name="languages.main"
+                      value="de"
+                    />German</label
+                  >
+                </li>
+                <li>
+                  <label
+                    ><input
+                      type="radio"
+                      name="languages.main"
+                      value="es"
+                    />Spanish</label
+                  >
+                </li>
+              </ul>
+            </dftk-field>
+            <dftk-field label="Others">
+              <ul role="radiogroup">
+                <li>
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="languages.others"
+                      value="en"
+                    />English</label
+                  >
+                </li>
+                <li>
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="languages.others"
+                      value="fr"
+                    />French</label
+                  >
+                </li>
+                <li>
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="languages.others"
+                      value="de"
+                    />German</label
+                  >
+                </li>
+                <li>
+                  <label
+                    ><input
+                      type="checkbox"
+                      name="languages.others"
+                      value="es"
+                    />Spanish</label
+                  >
+                </li>
+              </ul>
+            </dftk-field>
+          </dftk-fieldset>
+          <dftk-fieldset label="Dates">
+            <dftk-field id="start" label="Start">
+              <input id="start" type="datetime-local" name="dates.start" />
+            </dftk-field>
+            <dftk-field id="end" label="End">
+              <input id="end" type="datetime-local" name="dates.end" />
+            </dftk-field>
+          </dftk-fieldset>
+        </div>
+        <dftk-actions>
+          <input type="submit" value="Save" />
+        </dftk-actions>
+      </form>
+    </template>
+    <template id="field">
+      <style>
+        :host {
+          margin: 0.5em 0;
+        }
+
+        label {
+          display: inline-block;
+          font-weight: bold;
+          min-width: var(--field-label-min-width, 12ch);
+        }
+
+        label::after {
+          content: ":";
+          padding-right: 0.5em;
+        }
+
+        ::slotted(input) {
+          padding: 0.5em 0.6em;
+          border: 1px solid #ccc;
+          box-shadow: inset 0 1px 3px #ddd;
+          border-radius: 0.25em;
+          vertical-align: middle;
+          background-color: hsla(0, 100%, 100%, 0.8);
+        }
+        ::slotted(input[type="number"]) {
+          -moz-appearance: textfield;
+        }
+        ::slotted(input[type="number"]::-webkit-inner-spin-button) {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        ::slotted(input[type="number"]::-webkit-outer-spin-button) {
+          -webkit-appearance: none;
+          margin: 0;
+        }
+        ::slotted(input[type="datetime-local"]) {
+          width: 24ch;
+        }
+        ::slotted(input.short) {
+          width: 8ch;
+        }
+        ::slotted(input.long) {
+          width: 16ch;
+        }
+        ::slotted(input.lat) {
+          width: 12ch;
+        }
+        ::slotted(input.lng) {
+          width: 12ch;
+        }
+
+        ::slotted(ul[role="radiogroup"]) {
+          list-style: none;
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(10ch, auto));
+          grid-gap: 0.5em 1em;
+          padding: 0;
+          margin: 0.5em 0;
+        }
+      </style>
+      <label></label>
+      <slot></slot>
+    </template>
+    <template id="fieldset">
+      <style>
+        fieldset {
+          border: thin solid transparent;
+          border-radius: 0.25em;
+          display: flex;
+          flex-direction: column;
+        }
+
+        fieldset:focus-within {
+          border-left-color: var(--darken);
+        }
+
+        fieldset legend {
+          margin-top: 1em;
+          margin-left: -1em;
+          font-size: 110%;
+          font-weight: bold;
+        }
+      </style>
+      <fieldset>
+        <legend></legend>
+        <slot></slot>
+      </fieldset>
+    </template>
+    <template id="actions">
+      <style>
+        .actions {
+          background: var(--page-actions-bg, transparent);
+          display: flex;
+          justify-content: flex-end;
+          align-items: end;
+          padding: 0.25em 0.5em;
+          margin-top: 1em;
+          border-top: thin solid hsla(0, 100%, 100%, 0.25);
+        }
+        ::slotted(input[type="submit"]) {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          align-self: start;
+
+          box-sizing: border-box;
+          border: medium solid rgba(0, 0, 0, 0.25);
+
+          font-size: 1rem;
+          font-family: inherit;
+          cursor: pointer;
+
+          background-color: var(--btn-bg, #999);
+          color: var(--btn-fg, #222);
+          border-radius: 0.25em;
+          box-shadow: 0 3px 5px rgba(0, 0, 0, 0.18);
+
+          padding: 0.125em 0.5em;
+          min-width: 16ch;
+          min-height: 44px;
+
+          text-align: center;
+          line-height: 1;
+
+          transition: 220ms all ease-in-out;
+        }
+        ::slotted(input[type="submit"]:hover) {
+          background-color: var(--btn-bg-light, #bbb);
+        }
+        ::slotted(input[type="submit"]:active) {
+          background-color: var(--btn-bg-light, #bbb);
+        }
+        ::slotted(input[type="submit"]:focus) {
+          outline-style: solid;
+          outline-color: transparent;
+          box-shadow: 0 0 0 4px var(--btn-shadow, rgba(0, 0, 0, 0.4));
+        }
+        ::slotted(input[type="submit"]:disabled) {
+          filter: grayscale(1);
+        }
+      </style>
+      <div class="actions">
+        <slot></slot>
+      </div>
+    </template>
+    <template id="field-markdown">
+      <!-- TODO Markdown editor: raw/preview -->
+    </template>
+  </head>
   <body>
-    <dftk-app></dftk-app>
+    <!-- Routing -->
+    <dftk-routes>
+      <dftk-route label="General" menu="Information">
+        <dftk-general />
+      </dftk-route>
+      <dftk-route label="General" menu="Users">Users</dftk-route>
+      <dftk-route label="Sessions" menu="Categories"
+        >Session Categories</dftk-route
+      >
+      <dftk-route label="Sessions" menu="Formats">Session Formats</dftk-route>
+      <dftk-route label="Sessions" menu="List">Sessions</dftk-route>
+      <dftk-route label="Speakers" menus="List">Speakers</dftk-route>
+      <dftk-route label="Team" menu="Members">Team Members</dftk-route>
+      <dftk-route label="Team" menu="Types">Member Types</dftk-route>
+      <dftk-route label="Schedule" menu="Rooms">Rooms</dftk-route>
+      <dftk-route label="Schedule" menu="Slots">Slots</dftk-route>
+      <dftk-route label="Schedule" menu="Schedule">Schedule</dftk-route>
+    </dftk-routes>
+
+    <!-- Application -->
+    <nav>
+      <h1>DevFest Toolkit</h1>
+      <dftk-menubar slot="menubar"></dftk-menubar>
+    </nav>
+    <dftk-submenu slot="submenu"></dftk-submenu>
+    <dftk-current-route slot="page"></dftk-current-route>
+    <footer>
+      <a
+        href="https://github.com/GDGToulouse/devfest-toolkit-rs"
+        class="github"
+        slot="footer"
+        >devfest-toolkit-rs</a
+      >
+    </footer>
   </body>
 </html>

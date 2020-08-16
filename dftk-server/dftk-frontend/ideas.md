@@ -56,6 +56,48 @@ See Nav: <https://css-tricks.com/three-css-alternatives-to-javascript-navigation
 ### Maybe replace tooling (Yak shaving mode)
 
 - bundling code (rollup, babel, swc? ...)
+
 - need to serve page
   - with watching change
-  - with proxying some routes
+  - (optional) with proxying some routes
+  - (optional) bundle `{}/index.mjs` ?
+  - HTML include
+
+``` html
+<static-template src="./template-file.html"/>
+<static-style src="./style.css"/>
+<static-style src="./style.scss"/>
+
+<static-templates glob="./templates/*.html"/>
+<static-svg-icon glob="./folder/*"/>
+```
+
+```js
+importStaticAsString("./file.html")
+importStaticAsString("./file.css")
+importStaticAsString("./file.scss")
+importStaticAsJson("./file.json")
+importStaticAsJson("./file.json5")
+```
+
+
+store/optics in WebAssembly ?
+
+---
+inputs -> 
+  elts -> dependencies graph (Index dependencies)
+  detect cycle ? 
+
+---
+Processing: X -> X'
+HTML `static-template`, `static-style`, `static-templates`, `static-svg-icon`
+JS `importStaticAsString`, `importStaticAsJson`
+---
+Concat?
+minify
+rename
+---
+
+Output: 
+  - to dir
+  - InMemory serving ?

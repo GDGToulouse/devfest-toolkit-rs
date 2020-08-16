@@ -1,10 +1,10 @@
-import {defaultRoute} from "./routes.mjs";
+import { lens } from "./fmwk/index.mjs";
+
+export const activeRoute$ = lens("activeRoute");
 
 // Default State
 export const defaultState = () => {
-  const title = "DevFest Toolkit";
-  const github = "https://github.com/GDGToulouse/devfest-toolkit-rs";
-  const activeRoute = defaultRoute;
+  const activeRoute = { key: "general", menu: "information" };
 
-  return { title, activeRoute, github };
+  return { activeRoute };
 };

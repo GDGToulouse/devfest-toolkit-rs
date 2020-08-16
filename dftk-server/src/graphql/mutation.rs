@@ -8,6 +8,7 @@ use dftk_conference_hall::{read_event, ConferenceHallConfig};
 use dftk_database::Repositories;
 use dftk_hugo_site::{generate, SiteConfig};
 
+use crate::graphql::info::{SiteInfoInputType, SiteInfoOutputType};
 use crate::graphql::sessions::{
     GenerateResultOutputType, SessionCategoryOutputType, SessionCreateInput,
     SessionDocumentOutputType, SessionFormatOutputType, SessionPatchInput,
@@ -17,6 +18,7 @@ use crate::graphql::speakers::{SpeakerCreateInput, SpeakerDocumentOutputType, Sp
 use crate::graphql::sponsors::{SponsorCategoryOutputType, SponsorInputType, SponsorOutputType};
 use crate::graphql::teams::{MemberTypeOutputType, TeamMemberInputType, TeamMemberOutputType};
 use crate::graphql::user::{to_user, UserCreateInput, UserCreateOutput};
+use dftk_common::models::site::EventId;
 
 pub struct MutationSite;
 
@@ -55,6 +57,21 @@ impl MutationSite {
         let result = generate(&site_config, site).await?;
 
         Ok(result.into())
+    }
+
+    /// Update general conference information
+    async fn update_site_info(
+        &self,
+        ctx: &Context<'_>,
+        id: EventId,
+        info: SiteInfoInputType,
+    ) -> FieldResult<SiteInfoOutputType> {
+        let repos = ctx.data_unchecked::<Repositories>();
+        let site_info = info.to_site_info(&id);
+        let id: String = id.into();
+        let _result = repos.info().save_or_update(id.as_str(), &site_info).await?;
+
+        Ok(site_info.into())
     }
 
     /// Patching a session
